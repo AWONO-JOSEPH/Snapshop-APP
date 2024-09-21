@@ -1,0 +1,18 @@
+/* styles/Footer.css */
+footer {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .footer-content ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .footer-content ul li {
+    display: inline;
+    margin: 0 10px;
+    flex-direction: column;
+  }

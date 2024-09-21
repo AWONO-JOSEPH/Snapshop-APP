@@ -1,0 +1,16 @@
+/* styles/NewsletterSignup.css */
+.newsletter {
+    padding: 20px;
+    text-align: center;
+    background-color: #f4f4f4;
+  }
+  
+  .newsletter form {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .newsletter input {
+    padding: 10px;
+    margin-right: 10px;
+  }

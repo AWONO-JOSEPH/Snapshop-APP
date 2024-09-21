@@ -1,0 +1,57 @@
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it appears above other content */
+    display: flex;
+    flex-direction: row;
+  }
+
+  
+  
+  .loading-dots {
+    display: flex; /* Align dots in a row */
+    gap: 10px; /* Space between dots */
+  }
+  
+  .dot {
+    width: 15px; /* Dot size */
+    height: 15px; /* Dot size */
+    background-color: #007bff; /* Dot color */
+    border-radius: 50%; /* Make dots circular */
+    animation: jump 0.6s infinite alternate; /* Jump animation */
+  }
+  
+  .dot:nth-child(1) {
+    animation-delay: 0s; /* No delay for the first dot */
+  }
+  
+  .dot:nth-child(2) {
+    animation-delay: 0.2s; /* Slight delay for the second dot */
+  }
+  
+  .dot:nth-child(3) {
+    animation-delay: 0.4s; /* Slight delay for the third dot */
+  }
+  
+  @keyframes jump {
+    0% {
+      transform: translateY(0); /* Start position */
+    }
+    100% {
+      transform: translateY(-20px); /* Jump height */
+    }
+  }
+  
+  .loading-overlay p {
+    font-size: 1.2rem; /* Font size for loading text */
+    color: #333; /* Dark color for text */
+    margin-top: 20px; /* Space between dots and text */
+  }

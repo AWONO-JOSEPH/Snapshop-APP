@@ -1,0 +1,201 @@
+.login-page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0f2f5;
+  padding: 20px;
+  width: 100%;
+}
+
+.login-content-wrapper {
+  display: flex;
+  max-width: 900px;
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.8s ease-out;
+}
+
+.login-form-section {
+  flex: 1;
+  padding: 20px; /* Reduced padding for compactness */
+  
+}
+
+.login-form-title {
+  font-size: 2rem; /* Reduced title size */
+  color: #333;
+  margin-bottom: 20px; /* Reduced margin */
+  text-align: center; /* Center title text */
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center items horizontally */
+  
+}
+
+.login-form-group {
+  margin-bottom: 15px; /* Adjusted margin */
+}
+
+.login-form-input {
+  width: calc(100% - 12px); /* Calculate width to account for padding */
+  padding: 8px; /* Adjusted padding */
+  border: 2px solid #e0e0e0;
+  border-radius: 6px; /* Slightly reduced border radius */
+  font-size: 0.9rem; /* Reduced font size */
+}
+
+.login-form-input:focus {
+  border-color: #4a90e2;
+}
+
+.login-input-error {
+  border-color: #ff4d4d;
+}
+
+.login-error-text {
+  color: #ff4d4d;
+  font-size: 0.9rem;
+}
+
+.login-submit-btn {
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 6px; /* Reduced border radius */
+  padding: 8px; /* Adjusted padding */
+  font-size: 0.9rem; /* Reduced font size */
+  cursor: pointer;
+   transition: background-color .3s ease, transform .1s ease;
+   width: auto; /* Allow button to take its content width */
+   margin-top:10px; /* Add space above button */
+}
+
+.login-submit-btn:hover {
+   background-color: #3a7bc8;
+}
+
+.login-submit-btn:active {
+   transform: scale(0.98);
+}
+
+.login-signup-link {
+   margin-top:20px;
+   text-align:center;
+   font-size:.9rem; /* Consistent font size */
+}
+
+.login-promo-section {
+   flex:1;
+   background-image:url(../assets/loginpic.jpg);
+   background-size:cover;
+   background-position:center;
+   display:flex;
+   align-items:center;
+   justify-content:center;
+   padding-top :40px; /* Maintain padding for promo section */
+   padding-bottom :40px; 
+   color:white; 
+}
+
+.login-promo-content {
+   text-align:center; 
+}
+
+.login-brand {
+   font-size :2.5rem; 
+   font-weight:bold; 
+   margin-bottom :20px; 
+   text-shadow :2px2px4pxrgba(0,0,0,0.5); 
+}
+
+.login-promo-text {
+   font-size :1.25rem; 
+   font-weight:bold; 
+   text-shadow :1px1px2pxrgba(0,0,0,0.5); 
+}
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  .login-content-wrapper {
+    flex-direction: column; /* Stack elements vertically */
+    border-radius: 12px; /* Maintain rounded corners */
+    
+  }
+
+  .login-form-section {
+    width: 100%; /* Full width for the form section */
+    padding: 30px; /* Increased padding for a more spacious feel */
+    max-width: 90%; /* Increase max width to make it larger */
+    margin: 20px auto; /* Center the form with vertical margin */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for depth */
+    border-radius: 12px; /* Rounded corners for form section */
+    background-color: #ffffff; /* Ensure white background for clarity */
+    
+  }
+
+  .login-promo-section {
+    display: none; /* Hide the promo section on mobile */
+  }
+}
+
+@media (max-width: 480px) {
+  .login-page-container {
+    padding: 10px; /* Adjust padding for smaller screens */
+    background-color: #f7f9fc; /* Slightly lighter background color for mobile */
+    height: 100%;
+
+  }
+
+  .login-form-section {
+    padding: 20px; /* Further reduce padding for compactness */
+    max-width: 95%; /* Make it even larger on very small screens */
+    margin-top: 10px; /* Add margin at the top for spacing */
+    box-shadow: none; /* Remove box shadow for a cleaner look on small screens */
+  }
+
+  .login-form-title {
+    font-size: 1.8rem; /* Adjust title size for smaller screens */
+    color: #4a90e2; /* Use primary color for title to enhance visibility */
+    margin-bottom: 15px; /* Reduce margin below title */
+    text-shadow: none; /* Remove shadow on smaller screens for clarity */
+  }
+
+  .login-form-input,
+  .login-submit-btn {
+    font-size: 0.85rem; /* Adjust font size for inputs and buttons */
+    padding: 10px; /* Adjust padding for inputs and buttons */
+    height: auto; /* Allow height to adjust based on content */
+    border-radius: 6px; /* Maintain rounded corners */
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+  }
+
+  .login-submit-btn:hover {
+    background-color: #3a7bc8; /* Darker hover color for better contrast */
+    transform: translateY(-2px); /* Lift effect on hover for depth perception */
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.2); /* Slight shadow on hover for depth */
+  }
+
+   .login-signup-link {
+     margin-top:20px;
+     text-align:center;
+     font-size:.9rem;
+     color:#666; 
+     transition: color .3s ease;
+   }
+
+   .login-signup-link a {
+     color:#4a90e2;
+     text-decoration:none;
+     transition:.3s ease;
+   }
+
+   .login-signup-link a:hover {
+     color:#3a7bc8;
+   }
+}

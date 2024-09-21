@@ -1,0 +1,108 @@
+
+.ss-header {
+  background-color: #333;
+  color: white;
+  width: 100%; 
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+
+.ss-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px; 
+  margin: 0 auto; 
+  padding: 10px 20px;
+  width: 100%; 
+}
+
+.ss-logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.ss-logo-image img {
+  height: 50px;
+  width: 50px;    
+}
+
+.ss-logo-text a {
+  color: white;
+  text-decoration: none;
+  font-size: 24px;
+  margin-left: 10px;
+}
+
+.ss-nav-list {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+}
+
+.ss-nav-link {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.ss-nav-link:hover {
+  color: #007bff;
+}
+
+.ss-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .ss-nav {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100px;
+  }
+
+  .ss-menu-toggle {
+    display: block;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+  }
+
+  .ss-nav-list {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 10px;
+    
+  }
+
+  .ss-nav-list-open {
+    display: flex;
+    
+  }
+
+  .ss-nav-item {
+    margin: 10px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .ss-logo-text a {
+    font-size: 20px;
+  }
+
+  .ss-logo-image img {
+    height: 40px;
+    width: 40px;
+  }
+  .ss-logo-image{
+    margin-left: -155px;
+  }
+}

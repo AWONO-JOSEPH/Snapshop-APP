@@ -1,0 +1,78 @@
+.deals {
+  padding: 40px 20px; /* Add padding */
+  background-color: #f9f9f9; /* Light background color */
+}
+
+.deals h2 {
+  text-align: center; /* Center the heading */
+  margin-bottom: 30px; /* Add spacing below the heading */
+}
+
+.services-list {
+  display: flex; /* Use flexbox for layout */
+  flex-direction: column; /* Stack services vertically */
+  align-items: center; /* Center items */
+}
+
+.service {
+  display: flex; /* Use flexbox for horizontal layout */
+  align-items: center; /* Center items vertically */
+  background-color: white; /* White background for each service */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  padding: 20px; /* Padding inside service */
+  margin: 10px 0; /* Margin between services */
+  max-width: 800px; /* Max width for services */
+  width: 100%; /* Full width */
+}
+
+.service-image {
+  width: 150px; /* Set width for images */
+  height: 150px; /* Set height for images */
+  border-radius: 8px; /* Rounded corners for images */
+  margin-right: 20px; /* Space between image and text */
+  object-fit: cover; /* Maintain aspect ratio */
+  display: block; /* Ensure image is treated as a block element */
+  margin-left: auto; /* Center horizontally in flex container */
+  margin-right: auto; /* Center horizontally in flex container */
+}
+
+.service-details {
+  flex: 1; /* Allow details to take the remaining space */
+}
+
+.service-details h3 {
+  margin: 0 0 10px; /* Margin for spacing */
+}
+
+.service-details p {
+  margin: 0 0 15px; /* Margin for spacing */
+}
+
+/* Button Styles */
+.btn-primary {
+  background-color: #007bff; /* Primary button color */
+  color: white; /* White text color */
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px; /* Padding for button */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s; /* Smooth transition for hover */
+}
+
+.btn-primary:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+}
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .service {
+    flex-direction: column; /* Stack image and details vertically on small screens */
+    align-items: center; /* Center items horizontally */
+  }
+
+  .service-image {
+    margin-bottom: 15px; /* Space below image */
+    margin-left: auto; /* Center image horizontally in flex container */
+    margin-right: auto; /* Center image horizontally in flex container */
+  }
+}

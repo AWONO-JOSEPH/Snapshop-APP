@@ -1,0 +1,347 @@
+.item-detail-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.item-detail {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  max-width: 1000px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.image-gallery {
+  flex: 1;
+  position: relative;
+  min-height: 300px;
+}
+
+.image-gallery img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.nav-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.7);
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.nav-button:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.nav-button svg {
+  font-size: 28px;
+  color: #333;
+}
+
+.nav-button.left {
+  left: 15px;
+}
+
+.nav-button.right {
+  right: 15px;
+}
+
+.image-indicators {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+}
+
+.indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  transition: background-color 0.3s ease;
+}
+
+.indicator.active {
+  background-color: #ffffff;
+}
+
+.item-info {
+  flex: 1;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+}
+
+h2 {
+  font-size: 28px;
+  margin-bottom: 12px;
+  color: #333;
+}
+
+.price {
+  font-size: 22px;
+  font-weight: bold;
+  color: #4CAF50;
+  margin-bottom: 8px;
+}
+
+.location {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.actions {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.primary-button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 16px;
+}
+
+.primary-button:hover {
+  background-color: #45a049;
+}
+
+.icon-button {
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.icon-button:hover {
+  background-color: #e0e0e0;
+}
+
+.icon-button svg {
+  font-size: 24px;
+  color: #333;
+}
+
+.details, .location-map, .seller-message {
+  margin-bottom: 25px;
+}
+
+h3 {
+  font-size: 20px;
+  margin-bottom: 12px;
+  color: #333;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 12px;
+  font-size: 16px;
+}
+
+.send-button {
+  background-color: #2196F3;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 16px;
+}
+
+.send-button:hover {
+  background-color: #1e87db;
+}
+.close-button {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border: none;
+  border-radius: 50%;
+  width: 60px;  /* Increased from 40px */
+  height: 60px; /* Increased from 40px */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.close-button:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.close-button svg {
+  font-size: 30px;  /* Increased from 24px */
+  color: #333;
+}
+
+/* ... rest of the existing styles ... */
+
+@media (max-width: 480px) {
+  /* ... other existing styles ... */
+
+  .close-button {
+    width: 50px;  /* Slightly smaller for mobile, but still larger than before */
+    height: 50px;
+  }
+
+  .close-button svg {
+    font-size: 26px;  /* Adjusted for mobile */
+  }
+}
+
+@media (max-width: 768px) {
+  .item-detail {
+    flex-direction: column;
+    width: 95%;
+  }
+
+  .image-gallery {
+    min-height: 250px;
+  }
+
+  .item-info {
+    padding: 20px;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+
+  .price {
+    font-size: 20px;
+  }
+
+  .actions {
+    flex-wrap: wrap;
+  }
+
+  .primary-button {
+    width: 100%;
+  }
+}
+
+.item-detail {
+  /* ... existing styles ... */
+  display: flex;
+  flex-direction: column;  /* Change to column layout for better responsiveness */
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.image-gallery {
+  flex: 0 0 auto;  /* Don't allow flex to shrink or grow */
+  width: 100%;
+  max-height: 50vh;  /* Limit height to half of viewport height */
+  position: relative;
+  overflow: hidden;  /* Hide overflow */
+}
+
+.image-gallery img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;  /* Changed from cover to contain */
+}
+
+/* ... other existing styles ... */
+
+@media (min-width: 768px) {
+  .item-detail {
+    flex-direction: row;  /* Return to row layout on larger screens */
+  }
+
+  .image-gallery {
+    flex: 1;
+    max-height: none;  /* Remove max-height limitation on larger screens */
+  }
+
+  .item-info {
+    flex: 1;
+    overflow-y: auto;  /* Allow scrolling in info section if needed */
+  }
+}
+
+/* ... rest of the existing styles ... */
+
+@media (max-width: 480px) {
+  .item-detail {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+
+  .image-gallery {
+    min-height: 200px;
+  }
+
+  .nav-button {
+    width: 40px;
+    height: 40px;
+  }
+
+  .nav-button svg {
+    font-size: 22px;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+
+  .price {
+    font-size: 18px;
+  }
+
+  h3 {
+    font-size: 18px;
+  }
+
+  .icon-button {
+    width: 45px;
+    height: 45px;
+  }
+
+  .icon-button svg {
+    font-size: 20px;
+  }
+}

@@ -1,0 +1,154 @@
+
+
+.enhanced-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100vh;
+  background: linear-gradient(to bottom, #2c3e50, #34495e);
+  color: white;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.enhanced-sidebar__header {
+  padding: 20px;
+  background: rgba(52, 73, 94, 0.8);
+  text-align: center;
+}
+
+.enhanced-sidebar__app-name {
+  font-size: 2rem;
+  margin: 0;
+  color: #ecf0f1;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.enhanced-sidebar__nav {
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.enhanced-sidebar__menu {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.enhanced-sidebar__menu-item {
+  padding: 15px 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+}
+
+.enhanced-sidebar__menu-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.enhanced-sidebar__menu-item svg {
+  margin-right: 15px;
+  font-size: 1.2rem;
+}
+
+.enhanced-sidebar__menu-item--sell {
+  background-color: #27ae60;
+  margin: 10px 0;
+  border-radius: 5px;
+}
+
+.enhanced-sidebar__menu-item--sell:hover {
+  background-color: #2ecc71;
+}
+
+.enhanced-sidebar__menu-item--dropdown {
+  justify-content: space-between;
+}
+
+.enhanced-sidebar__dropdown-icon {
+  transition: transform 0.3s ease;
+}
+
+.enhanced-sidebar__category-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  background-color: rgba(52, 73, 94, 0.5);
+}
+
+.enhanced-sidebar__category-item {
+  padding: 10px 20px 10px 40px;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.enhanced-sidebar__category-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.enhanced-sidebar__footer {
+  padding: 20px;
+  background: rgba(52, 73, 94, 0.8);
+}
+
+.enhanced-sidebar__account-header {
+  text-align: center;
+  margin: 0 0 10px;
+  font-size: 1.2rem;
+  color: #ecf0f1;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .enhanced-sidebar {
+    transform: translateX(-100%);
+  }
+
+  .enhanced-sidebar--open {
+    transform: translateX(0);
+  }
+
+  body {
+    padding-left: 0;
+  }
+}
+
+/* Adjust main content area to accommodate sidebar */
+body {
+  transition: padding-left 0.3s ease;
+}
+
+/* Add a class to toggle sidebar visibility on mobile */
+.enhanced-sidebar--open {
+  transform: translateX(0);
+}
+
+/* Add a toggle button for mobile */
+.enhanced-sidebar__toggle {
+  display: none;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 1000;
+  background: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .enhanced-sidebar__toggle {
+    display: block;
+  }
+}
