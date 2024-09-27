@@ -1,17 +1,17 @@
-.featured-categories {
-  padding: 40px 0;
+.featured-categories-container {
+  padding: 60px 0;
   background-color: #f9f9f9;
 }
 
-.featured-categories h2 {
+.featured-categories-title {
   text-align: center;
-  margin-bottom: 30px;
-  font-size: 2rem;
+  margin-bottom: 40px;
+  font-size: 2.4rem;
   font-weight: 600;
   color: #333;
 }
 
-.category-gallery {
+.featured-categories-gallery {
   display: flex;
   overflow: hidden;
   scroll-behavior: smooth;
@@ -19,55 +19,62 @@
   position: relative;
 }
 
-.categories-item {
+.featured-categories-item {
   flex: 0 0 50%; /* Each category takes 50% width for larger screens */
   text-align: center;
   transition: transform 0.3s ease;
   box-sizing: border-box;
+  padding: 0 20px;
 }
 
-.category-item img {
+.featured-categories-image-container {
+  border-radius: 12px;
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.featured-categories-image {
   width: 100%;
-  height: 400px; /* Adjust height for better display */
+  height: 400px;
   object-fit: cover;
-  border-radius: 8px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
 }
 
-.category-item h3 {
-  font-size: 1.2rem;
-  margin-top: 10px;
+.featured-categories-name {
+  font-size: 1.4rem;
   font-weight: 500;
   color: #555;
+  margin-top: 12px;
 }
 
 /* Media Queries for responsiveness */
 @media (max-width: 1024px) {
-  .category-item img {
+  .featured-categories-image {
     height: 350px; /* Adjust image height for tablets */
   }
 }
 
 @media (max-width: 768px) {
-  .category-item {
+  .featured-categories-item {
     flex: 0 0 100%; /* Each category takes 100% width for smaller screens */
   }
 
-  .category-item img {
+  .featured-categories-image {
     height: 300px; /* Adjust image height for mobile landscape */
   }
 
-  .featured-categories h2 {
-    font-size: 1.8rem;
+  .featured-categories-title {
+    font-size: 2rem;
   }
 }
 
 @media (max-width: 480px) {
-  .category-item img {
+  .featured-categories-image {
     height: 250px; /* Adjust image height for mobile portrait */
   }
 
-  .featured-categories h2 {
-    font-size: 1.5rem;
+  .featured-categories-title {
+    font-size: 1.8rem;
   }
 }

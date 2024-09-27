@@ -11,11 +11,16 @@
   z-index: 1000;
 }
 
+Fa{
+  height: 50px;
+}
+
 .item-detail {
   background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   display: flex;
+  flex-direction: column;
   max-width: 1000px;
   width: 90%;
   max-height: 90vh;
@@ -24,15 +29,17 @@
 }
 
 .image-gallery {
-  flex: 1;
+  flex: 0 0 auto;
+  width: 100%;
+  max-height: 50vh;
   position: relative;
-  min-height: 300px;
+  overflow: hidden;
 }
 
 .image-gallery img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .nav-button {
@@ -42,8 +49,8 @@
   background-color: rgba(255, 255, 255, 0.7);
   border: none;
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -56,16 +63,16 @@
 }
 
 .nav-button svg {
-  font-size: 28px;
+  font-size: 20px;
   color: #333;
 }
 
 .nav-button.left {
-  left: 15px;
+  left: 10px;
 }
 
 .nav-button.right {
-  right: 15px;
+  right: 10px;
 }
 
 .image-indicators {
@@ -74,12 +81,12 @@
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 10px;
+  gap: 8px;
 }
 
 .indicator {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.5);
   transition: background-color 0.3s ease;
@@ -91,45 +98,47 @@
 
 .item-info {
   flex: 1;
-  padding: 25px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
 }
 
 h2 {
-  font-size: 28px;
-  margin-bottom: 12px;
+  font-size: 24px;
+  margin-bottom: 10px;
   color: #333;
 }
 
 .price {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: bold;
   color: #4CAF50;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .location {
-  font-size: 16px;
+  font-size: 14px;
   color: #666;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .actions {
   display: flex;
-  gap: 15px;
-  margin-bottom: 25px;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
 .primary-button {
   background-color: #4CAF50;
   color: white;
   border: none;
-  padding: 12px 24px;
+  padding: 10px 20px;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  font-size: 16px;
+  font-size: 14px;
+  flex: 1 0 100%;
 }
 
 .primary-button:hover {
@@ -140,8 +149,8 @@ h2 {
   background-color: #f0f0f0;
   border: none;
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -154,57 +163,111 @@ h2 {
 }
 
 .icon-button svg {
-  font-size: 24px;
+  font-size: 20px;
   color: #333;
+}
+
+
+/* Increase size of all React Icons, including the close button */
+.icon-button svg,
+.nav-button svg,
+.close-button svg {
+  font-size: 32px; /* All icons now have the same size */
+}
+
+/* Adjust button sizes to accommodate larger icons */
+.icon-button,
+.nav-button,
+.close-button {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Adjust positioning of navigation buttons */
+.nav-button.left {
+  left: 20px;
+}
+
+.nav-button.right {
+  right: 20px;
+}
+
+/* Adjust positioning of close button */
+.close-button {
+  top: 20px;
+  right: 20px;
+}
+
+/* Ensure proper spacing in the actions section */
+.actions {
+  gap: 15px;
+}
+
+/* Adjust the primary button to maintain layout balance */
+.primary-button {
+  font-size: 16px;
+  padding: 12px 24px;
 }
 
 .details, .location-map, .seller-message {
-  margin-bottom: 25px;
+  margin-bottom: 20px;
 }
 
 h3 {
-  font-size: 20px;
-  margin-bottom: 12px;
+  font-size: 18px;
+  margin-bottom: 10px;
   color: #333;
+}
+
+.map-container {
+  width: 100%;
+  height: 200px;
+  margin-bottom: 10px;
 }
 
 input[type="text"] {
   width: 100%;
-  padding: 12px;
+  padding: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
-  margin-bottom: 12px;
-  font-size: 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
 }
 
 .send-button {
   background-color: #2196F3;
   color: white;
   border: none;
-  padding: 12px 24px;
+  padding: 10px 20px;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  font-size: 16px;
+  font-size: 14px;
+  width: 100%;
 }
 
 .send-button:hover {
   background-color: #1e87db;
 }
+
 .close-button {
   position: absolute;
-  top: 15px;
-  right: 15px;
+  top: 10px;
+  right: 10px;
   background-color: rgba(255, 255, 255, 0.7);
   border: none;
   border-radius: 50%;
-  width: 60px;  /* Increased from 40px */
-  height: 60px; /* Increased from 40px */
+  width: 40px;
+  height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  z-index: 1001;
 }
 
 .close-button:hover {
@@ -212,120 +275,52 @@ input[type="text"] {
 }
 
 .close-button svg {
-  font-size: 30px;  /* Increased from 24px */
+  font-size: 24px;
   color: #333;
 }
 
-/* ... rest of the existing styles ... */
-
-@media (max-width: 480px) {
-  /* ... other existing styles ... */
-
-  .close-button {
-    width: 50px;  /* Slightly smaller for mobile, but still larger than before */
-    height: 50px;
-  }
-
-  .close-button svg {
-    font-size: 26px;  /* Adjusted for mobile */
-  }
-}
-
-@media (max-width: 768px) {
+@media (min-width: 768px) {
   .item-detail {
-    flex-direction: column;
-    width: 95%;
+    flex-direction: row;
   }
 
   .image-gallery {
-    min-height: 250px;
+    flex: 1;
+    max-height: none;
   }
 
   .item-info {
-    padding: 20px;
-  }
-
-  h2 {
-    font-size: 24px;
-  }
-
-  .price {
-    font-size: 20px;
-  }
-
-  .actions {
-    flex-wrap: wrap;
+    flex: 1;
+    overflow-y: auto;
   }
 
   .primary-button {
-    width: 100%;
+    flex: 0 1 auto;
+  }
+
+  .actions {
+    flex-wrap: nowrap;
   }
 }
 
-.item-detail {
-  /* ... existing styles ... */
-  display: flex;
-  flex-direction: column;  /* Change to column layout for better responsiveness */
-  max-height: 90vh;
-  overflow-y: auto;
-}
-
-.image-gallery {
-  flex: 0 0 auto;  /* Don't allow flex to shrink or grow */
-  width: 100%;
-  max-height: 50vh;  /* Limit height to half of viewport height */
-  position: relative;
-  overflow: hidden;  /* Hide overflow */
-}
-
-.image-gallery img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;  /* Changed from cover to contain */
-}
-
-/* ... other existing styles ... */
-
-@media (min-width: 768px) {
-  .item-detail {
-    flex-direction: row;  /* Return to row layout on larger screens */
-  }
-
-  .image-gallery {
-    flex: 1;
-    max-height: none;  /* Remove max-height limitation on larger screens */
-  }
-
-  .item-info {
-    flex: 1;
-    overflow-y: auto;  /* Allow scrolling in info section if needed */
-  }
-}
-
-/* ... rest of the existing styles ... */
-
-@media (max-width: 480px) {
+@media (max-width: 767px) {
   .item-detail {
     width: 100%;
     height: 100%;
     border-radius: 0;
+    max-height: 100vh;
   }
 
   .image-gallery {
-    min-height: 200px;
+    height: 40vh;
   }
 
-  .nav-button {
-    width: 40px;
-    height: 40px;
-  }
-
-  .nav-button svg {
-    font-size: 22px;
+  .item-info {
+    padding: 15px;
   }
 
   h2 {
-    font-size: 22px;
+    font-size: 20px;
   }
 
   .price {
@@ -333,15 +328,10 @@ input[type="text"] {
   }
 
   h3 {
-    font-size: 18px;
+    font-size: 16px;
   }
 
-  .icon-button {
-    width: 45px;
-    height: 45px;
-  }
-
-  .icon-button svg {
-    font-size: 20px;
+  .map-container {
+    height: 150px;
   }
 }

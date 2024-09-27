@@ -1,40 +1,34 @@
 import React, { useState } from "react";
 import '../PagesStyle/Login.css';
 import { useNavigate } from 'react-router-dom';
+import { useLoginMutation } from '../components/store/store/api/Authentication'; 
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const [login] = useLoginMutation(); 
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/auth/login/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password }),
-      });
+        const response = await login({ data: { username, password } }).unwrap();
 
-      const data = await response.json();
-
-      if (response.ok) {
         alert('Logged in Successfully');
-        console.log('Token:', data.token);
+        console.log('Token:', response.token); 
+        
+        // Store the token in local storage
+        localStorage.setItem('user', JSON.stringify(response)); // Ensure the entire response is stored
+
         navigate('/LandingPage');
-      } else {
-        setError(data.errors?.non_field_errors?.[0] || 'Login failed. Please check your credentials.');
-      }
     } catch (error) {
-      console.error('Error:', error);
-      setError('An error occurred while logging in. Please try again.');
+        console.error('Error:', error);
+        setError(error.data?.errors?.non_field_errors?.[0] || 'Login failed. Please check your credentials.');
     }
-  };
+};
 
   return (
     <div className="login-page-container">
@@ -49,6 +43,7 @@ const LoginForm = () => {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 className={`login-form-input ${error ? "login-input-error" : ""}`}
+                required 
               />
             </div>
             <div className="login-form-group">
@@ -58,6 +53,7 @@ const LoginForm = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className={`login-form-input ${error ? "login-input-error" : ""}`}
+                required 
               />
             </div>
             {error && <p className="login-error-text">{error}</p>}

@@ -1,111 +1,167 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectUser, updateUser } from '../components/store/store/slices/AuthSlice';
+import { useUploadProfilePictureMutation, useGetProfileQuery, useUpdateProfileMutation } from '../components/store/store/api/Authentication';
 import '../PagesStyle/Profile.css';
 
 const ProfilePage = () => {
+  const user = useSelector(selectUser);
+  const dispatch = useDispatch();
+
+  const [isEditing, setIsEditing] = useState(false);
   const [userInfo, setUserInfo] = useState({
-    name: 'Joe Funcky',
-    friendsCount: 39,
-    phone: '6 56 40 38 35',
-    jobTitle: 'Trésorier, à Eleve',
-    jobDuration: 'Octobre 2020 à aujourd\'hui',
-    school: 'Collège Pere Monti',
-    schoolDuration: 'Est parti(e) en 2021',
-    currentCity: 'Ajouter la ville actuelle',
-    hometown: 'Ajouter la ville d\'origine',
-    relationshipStatus: 'Ajouter une situation amoureuse',
-    position: 'Position inconnue'
+    name: user?.first_name || 'Joe Funcky',
+    phone: user?.phone || '6 56 40 38 35',
+    currentCity: user?.town || 'Ajouter la ville actuelle',
+    hometown: user?.hometown || 'Ajouter la ville d\'origine',
+    position: user?.position || 'Position inconnue'
   });
 
-  const [position, setPosition] = useState(userInfo.position);
+  const [file, setFile] = useState(null);
+  const [uploadProfilePicture] = useUploadProfilePictureMutation(); 
+  const { data: profileData, isSuccess } = useGetProfileQuery(); // Fetch user profile
+  const [updateProfile] = useUpdateProfileMutation();
 
-  const handlePositionChange = (e) => {
-    setPosition(e.target.value);
+  // Update local user state with fetched profile data
+  useEffect(() => {
+    if (isSuccess && profileData) {
+      setUserInfo({
+        name: profileData.first_name || 'Joe Funcky',
+        phone: profileData.phone || '6 56 40 38 35',
+        currentCity: profileData.town || 'Ajouter la ville actuelle',
+        hometown: profileData.hometown || 'Ajouter la ville d\'origine',
+        position: profileData.position || 'Position inconnue'
+      });
+    }
+  }, [isSuccess, profileData]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUserInfo({ ...userInfo, [name]: value });
   };
 
-  const handlePositionSave = () => {
-    setUserInfo({ ...userInfo, position });
+  const handleSaveChanges = async () => {
+    try {
+      await updateProfile(userInfo); // Update profile via API
+      dispatch(updateUser(userInfo)); // Update Redux state
+      setIsEditing(false); 
+      alert("Profile updated successfully!");
+    } catch (error) {
+      console.error("Failed to update profile:", error);
+      alert("Failed to update profile.");
+    }
   };
 
-  const handleLogout = () => {
-    console.log("Logging out...");
-    // Add your logout logic here
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]); 
+  };
+
+  const handleUploadPicture = async () => {
+    if (file) {
+      try {
+        await uploadProfilePicture({ file }).unwrap();
+        alert("Profile picture uploaded successfully!");
+      } catch (error) {
+        console.error("Failed to upload profile picture:", error);
+        alert("Failed to upload profile picture.");
+      }
+    } else {
+      alert("Please select a file first.");
+    }
   };
 
   return (
     <div className="profile-page">
-      {/* Header */}
       <div className="profile-header">
         <div className="profile-info">
           <img
-            src="https://via.placeholder.com/150"
+            src={profileData?.profile_picture || "https://via.placeholder.com/150"}
             alt="Profile Avatar"
             className="profile-avatar-large"
           />
           <div>
-            <h2 className="profile-name">{userInfo.name}</h2>        
+            <h2 className="profile-name">{userInfo.name}</h2>
           </div>
         </div>
-        <button className="add-cover-photo">Ajouter une photo de couverture</button>
+        <button className="add-cover-photo" onClick={handleUploadPicture}>
+          Add a Profile Picture
+        </button>
+        <input 
+          type="file" 
+          accept="image/*" 
+          onChange={handleFileChange} 
+          style={{ display: 'none' }} 
+          id="file-upload" 
+        />
+        <label htmlFor="file-upload" className="custom-file-upload">
+          Choose File
+        </label>
       </div>
 
       {/* Profile Action Buttons */}
       <div className="profile-actions">
-        <button className="action-button">Modifier le profil</button>
-      </div>
-
-      {/* Profile Tabs */}
-      <div className="profile-tabs">
-        <button className="tab-button">Publications</button>
-        <button className="tab-button">À propos</button>
+        <button className="action-button" onClick={() => setIsEditing(!isEditing)}>
+          {isEditing ? "Cancel" : "Modifier le profil"}
+        </button>
+        {isEditing && (
+          <button className="action-button" onClick={handleSaveChanges}>
+            Save Changes
+          </button>
+        )}
       </div>
 
       {/* About Section */}
       <div className="profile-about">
         <div className="about-heading">À propos</div>
         <div className="about-content">
-          <div className="about-item">
-            <i className="fas fa-briefcase"></i>
-            <span>{userInfo.jobTitle}, {userInfo.jobDuration}</span>
-          </div>
-          <div className="about-item">
-            <i className="fas fa-graduation-cap"></i>
-            <span>{userInfo.school}, {userInfo.schoolDuration}</span>
-          </div>
-          <div className="about-item">
-            <i className="fas fa-home"></i>
-            <span>{userInfo.currentCity}</span>
-          </div>
-          <div className="about-item">
-            <i className="fas fa-map-marker-alt"></i>
-            <span>{userInfo.hometown}</span>
-          </div>
-          <div className="about-item">
-            <i className="fas fa-heart"></i>
-            <span>{userInfo.relationshipStatus}</span>
-          </div>
-          <div className="about-item">
-            <i className="fas fa-phone"></i>
-            <span>{userInfo.phone}</span>
-          </div>
+          {isEditing ? (
+            <>
+              <input 
+                type="text" 
+                name="jobTitle" 
+                value={userInfo.jobTitle} 
+                onChange={handleChange} 
+                placeholder="Job Title"
+              />
+              <input 
+                type="text" 
+                name="school" 
+                value={userInfo.school} 
+                onChange={handleChange} 
+                placeholder="School"
+              />
+            </>
+          ) : (
+            <>
+              <div className="about-item">
+                <i className="fas fa-briefcase"></i>
+                <span>{userInfo.jobTitle || "Job Title"}, {userInfo.jobDuration || "Duration"}</span>
+              </div>
+              <div className="about-item">
+                <i className="fas fa-graduation-cap"></i>
+                <span>{userInfo.school || "School"}, {userInfo.schoolDuration || "Duration"}</span>
+              </div>
+            </>
+          )}
         </div>
       </div>
 
       {/* Set Position Section */}
       <div className="profile-position">
         <div className="position-heading">Set Your Position</div>
-        <div className="position-input-group">
-          <input
-            type="text"
-            value={position}
-            onChange={handlePositionChange}
-            className="position-input"
-            placeholder="Enter your position (coordinates or address)"
-          />
-          <button className="position-save-button" onClick={handlePositionSave}>
-            Save Position
-          </button>
-        </div>
-        <div className="current-position">Current Position: {userInfo.position}</div>
+        {isEditing ? (
+          <>
+            <input
+              type="text"
+              name="position"
+              value={userInfo.position}
+              onChange={handleChange}
+              placeholder="Enter your position (coordinates or address)"
+            />
+          </>
+        ) : (
+          <div className="current-position">Current Position: {userInfo.position}</div>
+        )}
       </div>
     </div>
   );

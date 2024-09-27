@@ -7,3 +7,25 @@
     padding: 20px;
     width: 100%;
   }
+
+  .article-nav ul {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    background-color: #f8f9fa;
+    list-style-type: none;
+  }
+  
+  .article-nav ul li {
+    margin-right: 20px;
+  }
+  
+  .article-nav ul li a {
+    text-decoration: none;
+    color: #007bff;
+  }
+  
+  .article-nav ul li a:hover {
+    text-decoration: underline;
+  }
+  

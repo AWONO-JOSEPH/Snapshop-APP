@@ -1,10 +1,10 @@
 import React from 'react';
 import '../LandingStyles/TrendingItems.css';
 
-function TrendingItems({ items, onItemClick }) {
+function TrendingItems({ items, onItemClick, title }) {
   return (
     <section className="trending-items">
-      <h2>Trending Items</h2>
+      <h2>{title}</h2>
       <div className="grid xl:grid-cols-3 md:grid-cols-2 gap-x-6 gap-y-4">
         {items.map(item => (
           <div key={item.id} className="shadow-md" onClick={() => onItemClick(item)}>
@@ -15,6 +15,7 @@ function TrendingItems({ items, onItemClick }) {
             <h3>{item.name}</h3>
             <p>{item.description}</p>
             <p className="town">{item.town}</p>
+            <p className="price">Price: {item.price} FCFA</p>
           </div>
         ))}
       </div>

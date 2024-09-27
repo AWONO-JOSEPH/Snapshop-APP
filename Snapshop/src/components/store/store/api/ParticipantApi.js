@@ -1,56 +1,32 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-export const ParticipantApi = createApi({
-  reducerPath: "ParticiPantApi",
+export const ProductApi = createApi({
+  reducerPath: 'productApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: process.env.REACT_APP_BACKEND_API_URL,
-    prepareHeaders: (headers) => {
-      const user = localStorage.getItem("user");
-      if (user) {
-        const userParsed = JSON.parse(user);
-        // console.log("USER PARSED ", userParsed);
-        headers.set("authorization", `Bearer ${userParsed.token.access}`);
-        headers.set("Content-type", "application/json");
-        // // console.log(headers.get("authorization"));
-      }
-      return headers;
-    },
+    baseUrl: 'http://127.0.0.1:8000/api/products/',
   }),
   endpoints: (builder) => ({
-    createParticipant: builder.mutation({
-      query: ({ data }) => {
+    createProduct: builder.mutation({
+      query: (productData) => {
+        const user = JSON.parse(localStorage.getItem('user'));
+        const token = user?.token?.access;
         return {
-          url: "participant/create/",
-          body: data,
-          method: "POST",
+          url: 'create-product/', 
+          method: 'POST',
+          body: productData,
+          headers: {
+            'Authorization': `Bearer ${token}`, 
+          },
         };
       },
     }),
-    getParticipantsDetails: builder.query({
-      query: (id) => {
-        return {
-          url: `participant/${id}/details/`,
-        };
-      },
+    getProducts: builder.query({
+      query: () => ({
+        url: 'http://127.0.0.1:8000/api/products/?category=',
+        method: 'GET',
+      }),
     }),
-    getParticipants: builder.query({
-      query: () => "participants_list/",
-    }),
-    // deleteParticipant: builder.mutation({
-    //   query: (id) => {
-    //     return {
-    //         url: `events/${id}/`,
-    //         method: "DELETE",
-    //     }
-    //   },
-    // }),
   }),
-
-  //
 });
 
-export const {
-  useCreateParticipantMutation,
-  useGetParticipantsDetailsQuery,
-  useGetParticipantsQuery,
-} = ParticipantApi;
+export const { useCreateProductMutation, useGetProductsQuery } = ProductApi;

@@ -53,13 +53,15 @@ function FeaturedCategories() {
   }, [currentIndex, categories.length, itemsToShow]);
 
   return (
-    <section className="featured-categories">
-      <h2>Featured Categories</h2>
-      <div className="category-gallery" ref={scrollRef}>
+    <section className="featured-categories-container">
+      <h2 className="featured-categories-title">Featured Categories</h2>
+      <div className="featured-categories-gallery" ref={scrollRef}>
         {categories.map((category, index) => (
-          <div className="categories-item" key={index}>
-            <img src={category.image} alt={category.name} />
-            <h3>{category.name}</h3>
+          <div className="featured-categories-item" key={index}>
+            <div className="featured-categories-image-container">
+              <img src={category.image} alt={category.name} className="featured-categories-image" />
+            </div>
+            <h3 className="featured-categories-name">{category.name}</h3>
           </div>
         ))}
       </div>

@@ -1,29 +1,25 @@
+// src/components/store/store/index.js
+
 import { configureStore } from "@reduxjs/toolkit";
 import { AuthenticationApi } from "./api/Authentication";
+import { EventApi } from "./api/EventApi2"; 
+import { ProductApi } from "./api/ProductApi"; // Import the ProductApi
 import { setupListeners } from "@reduxjs/toolkit/query";
 import authSlice from "./slices/AuthSlice";
-// import { EventApi } from "./api/EventApi";
-// import { ParticipantApi } from "./api/ParticipantApi";
-// import { UserApi } from "./api/UserApi";
-// import { SiteApi } from "./api/SiteApi";
 
 export const store = configureStore({
   reducer: {
     [AuthenticationApi.reducerPath]: AuthenticationApi.reducer,
-    // [EventApi.reducerPath]: EventApi.reducer,
-    // [ParticipantApi.reducerPath]: ParticipantApi.reducer,
-    // [UserApi.reducerPath]: UserApi.reducer,
-    // [SiteApi.reducerPath]: SiteApi.reducer,
+    [EventApi.reducerPath]: EventApi.reducer, // Add EventApi reducer
+    [ProductApi.reducerPath]: ProductApi.reducer, // Add ProductApi reducer
     auth: authSlice,
   },
-
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
       AuthenticationApi.middleware,
-    //   EventApi.middleware,
-    //   ParticipantApi.middleware,
-    //   UserApi.middleware,
-    //   SiteApi.middleware
+      EventApi.middleware, // Add EventApi middleware
+      ProductApi.middleware, // Add ProductApi middleware
     ),
 });
+
 setupListeners(store.dispatch);

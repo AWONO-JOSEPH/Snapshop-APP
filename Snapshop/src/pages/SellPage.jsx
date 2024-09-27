@@ -1,12 +1,25 @@
 import React, { useState } from 'react';
 import '../PagesStyle/SellPage.css';
-import Header from '/Users/klinch/Desktop/Snapshop APP/Snapshop/src/components/LandingComponents/Header';
+import { useCreateProductMutation } from '../components/store/store/api/ProductApi';
 
 function SellPage() {
   const [productImages, setProductImages] = useState([]);
   const [productName, setProductName] = useState('');
   const [productPrice, setProductPrice] = useState('');
   const [productDescription, setProductDescription] = useState('');
+  const [productCategory, setProductCategory] = useState('');
+  const [createProduct] = useCreateProductMutation();
+
+  const categories = [
+    { value: '', label: 'Select a category' },
+    { value: 'fashion_clothing', label: 'Fashion - Clothing' },
+    { value: 'fashion_accessories', label: 'Fashion - Accessories' },
+    { value: 'fashion_shoes', label: 'Fashion - Shoes' },
+    { value: 'home_decor', label: 'Home Decoration' },
+    { value: 'artisanal_jewelry', label: 'Artisanal - Jewelry' },
+    { value: 'artisanal_pottery', label: 'Artisanal - Pottery' },
+    { value: 'artisanal_textiles', label: 'Artisanal - Textiles' },
+  ];
 
   const handleImageChange = (e) => {
     setProductImages([...e.target.files]);
@@ -17,14 +30,32 @@ function SellPage() {
     setProductImages(newImages);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Product Submitted:', {
-      productImages,
-      productName,
-      productPrice,
-      productDescription,
-    });
+
+    const formData = new FormData();
+    formData.append('name', productName);
+    formData.append('price', productPrice);
+    formData.append('description', productDescription);
+    formData.append('category', productCategory);
+
+    for (let i = 0; i < productImages.length; i++) {
+      formData.append('product_images', productImages[i]);
+    }
+
+    try {
+      await createProduct(formData).unwrap();
+      alert('Product posted successfully!');
+      
+      setProductName('');
+      setProductPrice('');
+      setProductDescription('');
+      setProductCategory('');
+      setProductImages([]);
+    } catch (error) {
+      console.error('Error posting product:', error);
+      alert('Failed to post product. Please try again.');
+    }
   };
 
   return (
@@ -88,6 +119,22 @@ function SellPage() {
               onChange={(e) => setProductPrice(e.target.value)}
               required
             />
+          </div>
+
+          <div className="sp-form-group">
+            <select
+              id="productCategory"
+              className="sp-select"
+              value={productCategory}
+              onChange={(e) => setProductCategory(e.target.value)}
+              required
+            >
+              {categories.map((category) => (
+                <option key={category.value} value={category.value}>
+                  {category.label}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="sp-form-group">
