@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom'; 
-import { FaGalacticRepublic, FaPlus } from 'react-icons/fa'; 
+import { FaPlus } from 'react-icons/fa'; 
 import '../LandingStyles/FloatingButton.css';
 
 function FloatingButton() {
@@ -11,9 +11,18 @@ function FloatingButton() {
   };
 
   return (
-    <button className="floating-button" onClick={handleClick}>
-      <FaGalacticRepublic />
-    </button>
+    <div className="floating-button-wrapper">
+      <button
+        type="button"
+        className="floating-button"
+        aria-label="Sell an item"
+        title="Sell an item"
+        onClick={handleClick}
+      >
+        <FaPlus aria-hidden="true" />
+      </button>
+      <span className="floating-button__tooltip">Sell an item</span>
+    </div>
   );
 }
 

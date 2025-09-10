@@ -12,10 +12,12 @@ import ArticlesBought from './ArticlesBought';
 function LandingPage() {
   const [showSearch, setShowSearch] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(null); // { label, value }
   const [activeSection, setActiveSection] = useState('Shop All');
   const [showArticlesBought, setShowArticlesBought] = useState(false);
   const [showArticlesSold, setShowArticlesSold] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
+  const [imageResults, setImageResults] = useState([]);
 
   const { data: products = [], error, isLoading } = useGetProductsQuery();
 
@@ -50,11 +52,12 @@ function LandingPage() {
     }
   };
 
-  const filteredProducts = selectedCategory === 'Shop All'
-    ? products 
-    : selectedCategory
-      ? products.filter(product => product.category.toLowerCase() === selectedCategory.toLowerCase())
-      : products;
+  // Filter products based on searchValue
+  const filteredProducts = products
+    .filter(product => product.name.toLowerCase().includes(searchValue.toLowerCase()))
+    .filter(product => !selectedCategory || (product.category && product.category === selectedCategory.value));
+
+  const displayItems = imageResults.length ? imageResults : filteredProducts;
 
   return (
     <div className="app">
@@ -63,7 +66,13 @@ function LandingPage() {
         onSectionChange={handleSectionChange}
       />
       <div className="main-content">
-        <Header onSearchToggle={handleSearchToggle} />
+        <Header
+          searchValue={searchValue}
+          onSearchChange={setSearchValue}
+          onImageResults={(results) => {
+            setImageResults(Array.isArray(results) ? results : []);
+          }}
+        />
         {showSearch && <input type="text" placeholder="Search..." className="search-bar" />}
 
         {isLoading ? (
@@ -71,7 +80,16 @@ function LandingPage() {
         ) : error ? (
           <p>Error fetching products.</p>
         ) : (
-          <TrendingItems items={filteredProducts} onItemClick={handleItemClick} />
+          <>
+            {selectedCategory && (
+              <h3 style={{ padding: '8px 16px' }}>Category: {selectedCategory.label}</h3>
+            )}
+            <TrendingItems
+              items={displayItems}
+              onItemClick={handleItemClick}
+              title={imageResults.length ? 'Image search results' : 'Recommendations'}
+            />
+          </>
         )}
 
         {selectedItem && <ItemDetail item={selectedItem} onClose={handleCloseDetail} />}
@@ -83,10 +101,12 @@ function LandingPage() {
         <button className="close-popup" onClick={() => setShowArticlesBought(false)}>Close</button>
       </div>
 
-      <div className={`popup-container ${showArticlesSold ? 'show' : ''}`}>
-        <ArticlesSold />
-        <button className="close-popup" onClick={() => setShowArticlesSold(false)}>Close</button>
-      </div>
+      {showArticlesSold && (
+        <div className="popup-container show">
+          <ArticlesSold />
+          <button className="close-popup" onClick={() => setShowArticlesSold(false)}>Close</button>
+        </div>
+      )}
     </div>
   );
 }

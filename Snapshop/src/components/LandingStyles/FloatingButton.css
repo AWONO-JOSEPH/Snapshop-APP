@@ -1,22 +1,102 @@
-.floating-button {
+/* Wrapper positions the FAB and hosts tooltip */
+.floating-button-wrapper {
   position: fixed;
-  bottom: 20px; /* Distance from the bottom */
-  right: 20px; /* Distance from the right */
-  width: 60px; /* Width of the button */
-  height: 60px; /* Height of the button */
-  background-color: #007bff; /* Button color */
-  color: white; /* Icon color */
-  border: none; /* No border */
-  border-radius: 50%; /* Make it round */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for depth */
-  cursor: pointer; /* Pointer cursor on hover */
-  display: flex; /* Center the icon */
-  justify-content: center; /* Center the icon horizontally */
-  align-items: center; /* Center the icon vertically */
-  font-size: 24px; /* Icon size */
-  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+  bottom: 20px;
+  right: 20px;
+  z-index: 50;
+}
+
+.floating-button {
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, #6a5af9 0%, #8e77ff 50%, #00d4ff 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 9999px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25), 0 6px 12px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  position: relative;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  outline: none;
+}
+
+.floating-button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(rgba(255,255,255,0.25), rgba(255,255,255,0));
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
 }
 
 .floating-button:hover {
-  background-color: #0056b3; /* Darker shade on hover */
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.28), 0 8px 16px rgba(0, 0, 0, 0.18);
+  filter: saturate(1.1);
+}
+
+.floating-button:hover::before {
+  opacity: 1;
+}
+
+.floating-button:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.22), 0 4px 8px rgba(0, 0, 0, 0.14);
+}
+
+/* Focus-visible ring for keyboard users */
+.floating-button:focus-visible {
+  box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.35), 0 12px 24px rgba(0, 0, 0, 0.25);
+}
+
+/* Simple material-like ripple */
+.floating-button::after {
+  content: "";
+  position: absolute;
+  width: 120%;
+  height: 120%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  border-radius: inherit;
+  background: radial-gradient(circle, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0) 60%);
+  opacity: 0;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  pointer-events: none;
+}
+
+.floating-button:active::after {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Tooltip */
+.floating-button__tooltip {
+  position: absolute;
+  right: 78px;
+  bottom: 50%;
+  transform: translateY(50%);
+  background: rgba(17, 24, 39, 0.92);
+  color: #fff;
+  padding: 6px 10px;
+  font-size: 12px;
+  border-radius: 8px;
+  white-space: nowrap;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
+}
+
+.floating-button-wrapper:hover .floating-button__tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(50%) translateX(-2px);
 }

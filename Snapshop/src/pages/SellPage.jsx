@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../PagesStyle/SellPage.css';
 import { useCreateProductMutation } from '../components/store/store/api/ProductApi';
+import { useNavigate } from 'react-router-dom'; // Add this import
 
 function SellPage() {
   const [productImages, setProductImages] = useState([]);
@@ -9,6 +10,7 @@ function SellPage() {
   const [productDescription, setProductDescription] = useState('');
   const [productCategory, setProductCategory] = useState('');
   const [createProduct] = useCreateProductMutation();
+  const navigate = useNavigate(); // Add this line
 
   const categories = [
     { value: '', label: 'Select a category' },
@@ -34,24 +36,26 @@ function SellPage() {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append('name', productName);
-    formData.append('price', productPrice);
-    formData.append('description', productDescription);
-    formData.append('category', productCategory);
+    formData.append("name", productName);
+    formData.append("price", productPrice);
+    formData.append("description", productDescription);
+    formData.append("category", productCategory);
 
-    for (let i = 0; i < productImages.length; i++) {
-      formData.append('product_images', productImages[i]);
-    }
+    // Append all images
+    productImages.forEach((img, idx) => {
+      formData.append("images", img); // 'images' should match your backend field name
+    });
 
     try {
       await createProduct(formData).unwrap();
+
       alert('Product posted successfully!');
-      
       setProductName('');
       setProductPrice('');
       setProductDescription('');
       setProductCategory('');
       setProductImages([]);
+      navigate('/articles-sold');
     } catch (error) {
       console.error('Error posting product:', error);
       alert('Failed to post product. Please try again.');
@@ -62,6 +66,14 @@ function SellPage() {
     <div className="sp-container">
       <div className="sp-content">
         <h1 className="sp-title">Sell Your Product</h1>
+        {/* Return Button */}
+        <button
+          className="sp-return-button"
+          style={{ marginBottom: '1rem' }}
+          onClick={() => navigate(-1)}
+        >
+          Return
+        </button>
         <form className="sp-form" onSubmit={handleSubmit}>
           <div className="sp-form-group">
             <label htmlFor="images" className="sp-label">Product Images:</label>

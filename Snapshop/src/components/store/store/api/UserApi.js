@@ -8,10 +8,8 @@ export const UserApi = createApi({
       const user = localStorage.getItem("user");
       if (user) {
         const userParsed = JSON.parse(user);
-        // console.log("USER PARSED ", userParsed);
-        headers.set("authorization", `Bearer ${userParsed.token.access}`);
+        headers.set("Authorization", `Bearer ${userParsed.token.access}`);
         headers.set("Content-type", "application/json");
-        // // console.log(headers.get("authorization"));
       }
       return headers;
     },
@@ -21,40 +19,29 @@ export const UserApi = createApi({
       query: () => "users/",
     }),
     createUser: builder.mutation({
-      query: ({ data }) => {
-        return {
-          url: "users/",
-          body: data,
-          method: "POST",
-        };
-      },
+      query: ({ data }) => ({
+        url: "users/",
+        body: data,
+        method: "POST",
+      }),
     }),
     editUser: builder.mutation({
-      query: ({ data }) => {
-        return {
-          url: `users/${data.id}`,
-          body: data,
-          method: "PUT",
-        };
-      },
+      query: ({ data }) => ({
+        url: `users/${data.id}/`,
+        body: data,
+        method: "PUT",
+      }),
     }),
     deleteUser: builder.mutation({
-      query: (id) => {
-        return {
-          url: `users/${id}/`,
-          method: "DELETE",
-        };
-      },
+      query: (id) => ({
+        url: `users/${id}/`,
+        method: "DELETE",
+      }),
     }),
-
     getTokenExpiry: builder.query({
-      query: () => 'check_session'
-
+      query: () => 'check_session',
     }),
   }),
-
-
-  //
 });
 
 export const {
@@ -63,5 +50,4 @@ export const {
   useGetUsersQuery,
   useEditUserMutation,
   useGetTokenExpiryQuery
-
 } = UserApi;

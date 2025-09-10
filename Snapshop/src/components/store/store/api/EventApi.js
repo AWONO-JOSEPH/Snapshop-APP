@@ -3,87 +3,81 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const EventApi = createApi({
   reducerPath: "EventApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: process.env.REACT_APP_BACKEND_API_URL,
+    baseUrl: import.meta.env.VITE_BACKEND_API_URL, // <-- Vite uses import.meta.env
     prepareHeaders: (headers) => {
       const user = localStorage.getItem("user");
       if (user) {
         const userParsed = JSON.parse(user);
-        // console.log("USER PARSED ", userParsed);
-        headers.set("authorization", `Bearer ${userParsed.token.access}`);
-        headers.set("Content-type", "application/json");
-        // // console.log(headers.get("authorization"));
+        headers.set("Authorization", `Bearer ${userParsed.token.access}`);
       }
       return headers;
     },
   }),
   endpoints: (builder) => ({
     createEvent: builder.mutation({
-      query: ({ data }) => {
-        return {
-          url: "events/",
-          body: data,
-          method: "POST",
-        };
-      },
+      query: ({ data }) => ({
+        url: "events/",
+        body: data,
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+      }),
     }),
     getEvents: builder.query({
       query: () => "events/",
     }),
-    deleteEvents: builder.mutation({
-      query: (id) => {
-        return {
-          url: `events/${id}/`,
-          method: "DELETE",
-        }
-      },
+    deleteEvent: builder.mutation({
+      query: (id) => ({
+        url: `events/${id}/`,
+        method: "DELETE",
+      }),
     }),
     updateEvent: builder.mutation({
-      query: ({ id, data }) => {
-        return {
-          url: `events/${id}/`,
-          method: "PUT",
-          body: data
-        }
-      },
+      query: ({ id, data }) => ({
+        url: `events/${id}/`,
+        method: "PUT",
+        body: data,
+        headers: {
+          "Content-type": "application/json",
+        },
+      }),
     }),
     manageEventGetData: builder.query({
-      query: ({ id }) => {
-        return {
-          url: `event/datas/${id}/`,
-          method: "GET",
-
-        }
-      },
+      query: ({ id }) => ({
+        url: `event/datas/${id}/`,
+        method: "GET",
+      }),
     }),
     addParticipantToEvent: builder.mutation({
-      query: ({ id, data }) => {
-        return {
-          url: `event/datas/${id}/`,
-          method: "POST",
-          body: data
-
-        }
-      },
+      query: ({ id, data }) => ({
+        url: `event/datas/${id}/`,
+        method: "POST",
+        body: data,
+        headers: {
+          "Content-type": "application/json",
+        },
+      }),
     }),
-    deleteParticipantToEvent: builder.mutation({
-      query: ({ id, data }) => {
-        return {
-          url: `event/datas/${id}/`,
-          method: "DELETE",
-          body: data
-        }
-      },
+    deleteParticipantFromEvent: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `event/datas/${id}/`,
+        method: "DELETE",
+        body: data,
+        headers: {
+          "Content-type": "application/json",
+        },
+      }),
     }),
   }),
-
-  //
 });
 
-export const { useCreateEventMutation,
+export const {
+  useCreateEventMutation,
   useGetEventsQuery,
-  useDeleteEventsMutation,
+  useDeleteEventMutation,
   useManageEventGetDataQuery,
-  useDeleteParticipantToEventMutation,
+  useDeleteParticipantFromEventMutation,
   useAddParticipantToEventMutation,
-  useUpdateEventMutation
+  useUpdateEventMutation,
 } = EventApi;
